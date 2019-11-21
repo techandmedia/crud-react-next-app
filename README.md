@@ -1,2 +1,2 @@
-# training-batch-satu
- Latihan Training React
+# Web Application with React - Next - MySQL
+ Crud application
