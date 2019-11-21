@@ -1,0 +1,19 @@
+.logo {
+  width: 120px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 4px 8px 0 0;
+  float: left;
+}
+
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
