@@ -4,34 +4,46 @@ const mySQL = require("../config/my-sql");
 
 exports.register = router.post("/api/users/register", (req, res) => {
   // console.log(req.body);
-
   const username = req.body.username;
-  const today = new Date();
-  const newUser = {
-    user_name: req.body.username,
-    user_full_name: req.body.fullName,
-    user_address: req.body.address,
-    user_phone_number: req.body.phone,
-    created: today,
-    modified: today
-  };
 
-  // Insert current time
-  // CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+  // For later use
   // Update Current User
   // UPDATE `users` SET `username` = 'adi.sopian@subarnanto.com' WHERE `users`.`id_user` = 3;
 
-  // console.log(newUser)
-
   function addUser() {
+    const today = new Date();
+    const newUser = {
+      user_name: req.body.username,
+      user_full_name: req.body.fullName,
+      user_address: req.body.address,
+      user_phone_number: req.body.phone,
+      // Insert current time
+      // CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+      created: today,
+      modified: today
+    };
+
+    const newLoginUser = {
+      user_name: req.body.username,
+      password: req.body.password,
+      created: today,
+      modified: today
+    };
+    // console.log(newUser)
     mySQL.query("INSERT INTO users SET ?", newUser, (err, results, fields) => {
-      res.send({
-        code: 200,
-        status: "Success",
-        message: "New User is successfully added",
-        data: results
-      });
+      mySQL.query(
+        "INSERT INTO login SET ?",
+        newLoginUser,
+        (err, results, fields) => {
+          res.send({
+            code: 200,
+            status: "Success",
+            message: "New User is successfully added"
+          });
+        }
+      );
     });
+
     return null;
   }
 
@@ -49,7 +61,7 @@ exports.register = router.post("/api/users/register", (req, res) => {
       if (results.length > 0) {
         if (results[0].user_name === username) {
           res.send({
-            code: 201,
+            code: 205,
             success: "User is already existed",
             data: results
           });
