@@ -26,7 +26,7 @@ export default function SideMenu() {
           title={
             <span>
               <Icon type="user" />
-              subnav 1
+              Your Dashboard
             </span>
           }
         >

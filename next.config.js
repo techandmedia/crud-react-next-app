@@ -26,6 +26,7 @@ module.exports = withCss({
     }
     config.resolve.alias["components"] = path.join(__dirname, "components");
     config.resolve.alias["api"] = path.join(__dirname, "utils/api");
+    config.resolve.alias["context"] = path.join(__dirname, "utils/context");
 
     return config;
   },

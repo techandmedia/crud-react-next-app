@@ -1,7 +1,9 @@
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useEffect, useContext } from "react";
 import Link from "next/link";
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from "antd";
 import { Modal } from "components";
+
+import { UserContext } from "context/Global-Context";
 import modalReducer from "../utils/reducers/modal-reducer";
 import usePostData from "api/usePostData";
 
@@ -11,11 +13,13 @@ function NormalLoginForm(props) {
     isModalVisible: false
   });
   const [results, postData] = usePostData();
+  const { user, dispatchUser } = useContext(UserContext);
 
   useEffect(() => {
     // console.log(results);
     if (results.code === 200) {
       dispatchModal({ type: "success", results });
+      dispatchUser({ type: "login-success", results });
       setTimeout(() => {
         props.login();
       }, 1000);

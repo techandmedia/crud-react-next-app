@@ -1,5 +1,5 @@
 import { useEffect, useState, createContext, useReducer } from "react";
-import menuReducer from "../reducers/select-menu-reducer";
+import { selectMenuReducer, userReducer } from "../reducers";
 
 const MenuContext = createContext(null);
 const UserContext = createContext(null);
@@ -7,8 +7,12 @@ const UserContext = createContext(null);
 export default function GlobalProvider(props) {
   const [language, setLanguage] = useState("en");
   const [value, setLanguageValue] = useState(1);
-  const [user, setUser] = useState("Andri");
-  const [menu, dispatchMenu] = useReducer(menuReducer, { menu: "default" });
+  const [user, dispatchUser] = useReducer(userReducer, {
+    preferredWorkingHour: 8
+  });
+  const [menu, dispatchMenu] = useReducer(selectMenuReducer, {
+    menu: "preference"
+  });
 
   // useEffect(() => {
   //   if (value === 1) {
@@ -22,7 +26,7 @@ export default function GlobalProvider(props) {
 
   return (
     <MenuContext.Provider value={{ menu, dispatchMenu }}>
-      <UserContext.Provider value={{ user }}>
+      <UserContext.Provider value={{ user, dispatchUser }}>
         {props.children}
       </UserContext.Provider>
     </MenuContext.Provider>

@@ -7,6 +7,26 @@ exports.login = router.post("/api/users/login", (req, res) => {
   var password = req.body.password;
   console.log(req.body);
 
+  let user = null;
+  mySQL.query("SELECT * FROM users WHERE user_name = ?", [username], function(
+    error,
+    results,
+    fields
+  ) {
+    console.log(results);
+    user = results;
+  });
+
+  let preference = null;
+  mySQL.query(
+    "SELECT * FROM user_preference WHERE user_name = ?",
+    [username],
+    function(error, results, fields) {
+      console.log(results);
+      preference = results;
+    }
+  );
+
   mySQL.query("SELECT * FROM login WHERE user_name = ?", [username], function(
     error,
     results,
@@ -25,7 +45,7 @@ exports.login = router.post("/api/users/login", (req, res) => {
             code: 200,
             status: "Success",
             message: "Login sucessfull",
-            data: results
+            data: { user, preference }
           });
         } else {
           res.send({
