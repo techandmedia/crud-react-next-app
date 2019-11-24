@@ -25,6 +25,7 @@ module.exports = withCss({
       });
     }
     config.resolve.alias["components"] = path.join(__dirname, "components");
+    config.resolve.alias["api"] = path.join(__dirname, "utils/api");
 
     return config;
   },

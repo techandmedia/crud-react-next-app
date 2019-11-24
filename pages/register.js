@@ -1,4 +1,6 @@
 import { Form, Input, Select, Row, Col, Button } from "antd";
+import usePostData from "api/usePostData";
+import { useEffect } from "react";
 
 const { Option } = Select;
 
@@ -13,6 +15,13 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
+        this.props.postData("api/users/login", {
+          username: values.username,
+          fullname: values.fullname,
+          password: values.password,
+          address: values.address,
+          phone: values.prefix + values.phone
+        });
       }
     });
   };
@@ -42,28 +51,8 @@ class RegistrationForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 }
-      }
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0
-        },
-        sm: {
-          span: 16,
-          offset: 8
-        }
-      }
-    };
+    
+
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
     })(
@@ -179,4 +168,11 @@ const WrappedRegistrationForm = Form.create({ name: "register" })(
   RegistrationForm
 );
 
-export default WrappedRegistrationForm;
+export default function Registration() {
+  const [results, postData] = usePostData();
+
+  useEffect(() => {
+    console.log(results);
+  });
+  return <WrappedRegistrationForm postData={postData} />;
+}

@@ -1,5 +1,5 @@
 import { Layout, Menu, Dropdown, Icon } from "antd";
-import Link from "components/link";
+import Link from "next/link";
 
 const { Header } = Layout;
 const UserContext = React.createContext(null);
@@ -14,10 +14,14 @@ export default function TopNavigation({ isLoggedIn, logout }) {
       </Link>
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1">
-          <Link href="/about">About</Link>
+          <Link href="/about">
+            <a>About</a>
+          </Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact">
+            <a> Contact</a>
+          </Link>
         </Menu.Item>
         <Menu.Item key="3" style={{ float: "right" }}>
           <UserContext.Provider value={logout}>
@@ -32,10 +36,14 @@ export default function TopNavigation({ isLoggedIn, logout }) {
 const loginMenu = (
   <Menu>
     <Menu.Item>
-      <Link href="/login">Login</Link>
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
     </Menu.Item>
     <Menu.Item>
-      <Link href="/register">Register</Link>
+      <Link href="/register">
+        <a>Register</a>
+      </Link>
     </Menu.Item>
   </Menu>
 );
@@ -56,7 +64,9 @@ const dashboardMenu = (
       <Menu>
         <Menu.Item onClick={() => logout()}>Logout</Menu.Item>
         <Menu.Item>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/dashboard">
+            <a>Dashboard</a>
+          </Link>
         </Menu.Item>
       </Menu>
     )}
