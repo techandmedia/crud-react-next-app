@@ -14,7 +14,7 @@ export default function Tes(props) {
 
 class MyApp extends App {
   state = {
-    isLoggedIn: false,
+    isLoggedIn: true,
     user: "andri",
     password: "123"
   };

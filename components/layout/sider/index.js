@@ -45,7 +45,7 @@ export default function SideMenu() {
           title={
             <span>
               <Icon type="notification" />
-              subnav 3
+              User Profile
             </span>
           }
         >

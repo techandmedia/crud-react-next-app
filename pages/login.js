@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useState } from "react";
+import Link from "next/link";
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from "antd";
 import { Modal } from "components";
 import modalReducer from "../utils/reducers/modal-reducer";
@@ -41,6 +42,9 @@ function NormalLoginForm(props) {
     <Row type="flex" justify="center">
       <Col>
         <Modal modal={modal} dispatchModal={dispatchModal} />
+        <div style={{ textAlign: "center" }}>
+          <h1>Create Account</h1>
+        </div>
         <Form onSubmit={handleSubmit} className="login-form">
           <Form.Item>
             {getFieldDecorator("username", {
@@ -86,7 +90,10 @@ function NormalLoginForm(props) {
             >
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or
+            <Link href="/register">
+              <a> Register Now!</a>
+            </Link>
           </Form.Item>
         </Form>
       </Col>
