@@ -1,6 +1,9 @@
+import { useEffect, useReducer } from "react";
 import { Form, Input, Select, Row, Col, Button } from "antd";
+import { Modal, tailFormItemLayout, formItemLayout } from "components";
+import modalReducer from "../utils/reducers/modal-reducer";
+
 import usePostData from "api/usePostData";
-import { useEffect } from "react";
 
 const { Option } = Select;
 
@@ -15,7 +18,7 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        this.props.postData("api/users/login", {
+        this.props.postData("api/users/register", {
           username: values.username,
           fullname: values.fullname,
           password: values.password,
@@ -50,8 +53,6 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-
-    
 
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
@@ -170,9 +171,21 @@ const WrappedRegistrationForm = Form.create({ name: "register" })(
 
 export default function Registration() {
   const [results, postData] = usePostData();
+  const [modal, dispatchModal] = useReducer(modalReducer, {
+    isModalVisible: false
+  });
 
   useEffect(() => {
-    console.log(results);
-  });
-  return <WrappedRegistrationForm postData={postData} />;
+    // console.log(results);
+    if (results.code !== "") {
+      dispatchModal({ type: "success", results });
+    }
+  }, [results]);
+
+  return (
+    <React.Fragment>
+      <Modal modal={modal} dispatchModal={dispatchModal} />
+      <WrappedRegistrationForm postData={postData} />
+    </React.Fragment>
+  );
 }

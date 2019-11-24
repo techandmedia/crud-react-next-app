@@ -2,72 +2,37 @@ import { useReducer, useEffect, useState } from "react";
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from "antd";
 import { Modal } from "components";
 import modalReducer from "../utils/reducers/modal-reducer";
-import axios from "axios";
+import usePostData from "api/usePostData";
 
 function NormalLoginForm(props) {
   const { validateFields, getFieldDecorator } = props.form;
-  // const { user, password } = props;
   const [modal, dispatchModal] = useReducer(modalReducer, {
-    isModalVisible: false,
-    modalTitle: "",
-    modalMessage: ""
+    isModalVisible: false
   });
-  const [values, setValues] = useState(null);
-  const [data, setData] = useState(null);
+  const [results, postData] = usePostData();
 
   useEffect(() => {
-    if (values !== null) {
-      async function connect() {
-        const options = {
-          method: "post",
-          url: "http://localhost:5001/api/users/login",
-          data: {
-            username: values.username,
-            password: values.password
-          },
-          xsrfCookieName: "XSRF-TOKEN",
-          xsrfHeaderName: "X-XSRF-TOKEN"
-        };
-
-        try {
-          let result = await axios(options);
-          console.log("RESULT", result);
-          if (result.data.code === 200) {
-            setData(result.data.data[0]);
-          } else {
-            setData(false);
-            setMessage(result.data.message);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
-      connect();
+    // console.log(results);
+    if (results.code === 200) {
+      dispatchModal({ type: "success", results });
+      setTimeout(() => {
+        props.login();
+      }, 1000);
     }
-  }, [values]);
-
-  useEffect(() => {
-    if (data !== null) {
-      if (data) {
-        dispatchModal({ type: "success" });
-        setTimeout(() => {
-          props.login();
-        }, 1000);
-      }
-      if (!data) {
-        dispatchModal({ type: "warning" });
-        setData(null);
-      }
+    if (results.code > 200) {
+      dispatchModal({ type: "success", results });
     }
-  }, [data]);
+  }, [results]);
 
   function handleSubmit(e) {
     e.preventDefault();
     validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values);
-        setValues(values);
+        postData("api/users/login", {
+          username: values.username,
+          password: values.password
+        });
       }
     });
   }

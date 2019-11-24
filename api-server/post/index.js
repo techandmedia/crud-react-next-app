@@ -38,7 +38,7 @@ exports.register = router.post("/api/users/register", (req, res) => {
       });
     });
 
-    mySQL.query("INSERT INTO login SET ?", newLoginUser)
+    mySQL.query("INSERT INTO login SET ?", newLoginUser);
 
     return null;
   }
@@ -51,15 +51,17 @@ exports.register = router.post("/api/users/register", (req, res) => {
     if (error) {
       res.send({
         code: 400,
-        failed: "error ocurred"
+        status: "Failed",
+        message: "error ocurred"
       });
     } else {
       if (results.length > 0) {
         if (results[0].user_name === username) {
           res.send({
             code: 205,
-            success: "User is already existed",
-            data: results
+            status: "Failed",
+            message: "User is already existed"
+            // data: results
           });
         }
       } else {

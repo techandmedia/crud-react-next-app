@@ -6,18 +6,24 @@ const URL = config.URL;
 
 // ===== USE REDUCER ==========
 function fetchReducer(state, action) {
-  console.log(state, action);
+  // console.log(state, action);
   switch (action.type) {
     case "FETCH_INIT":
       return {
         ...state,
         isLoading: true,
-        isError: false
+        isError: false,
+        code: "",
+        status: "",
+        message: ""
       };
     case "POST_SUCCESS":
-      console.log(action.result);
+      const { result } = action;
       return {
         ...state,
+        code: result.data.code,
+        status: result.data.status,
+        message: result.data.message,
         isLoading: false,
         isError: false
       };
@@ -34,8 +40,12 @@ function fetchReducer(state, action) {
 
 export default function usePostData() {
   const [API, setAPI] = useState("");
-  const [params, setParams] = useState("");
-  const [state, dispatch] = useReducer(fetchReducer, {});
+  const [params, setParams] = useState({});
+  const [state, dispatch] = useReducer(fetchReducer, {
+    code: "",
+    status: "",
+    message: ""
+  });
 
   useEffect(() => {
     let didCancel = false;
@@ -44,17 +54,20 @@ export default function usePostData() {
       dispatch({ type: "FETCH_INIT" });
 
       try {
-        const result = await axios.post(URL + API, params);
-
+        const options = {
+          method: "post",
+          url: URL + API,
+          data: params,
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN"
+        };
+        const result = await axios(options);
         console.log(result);
 
         if (!didCancel) {
-          // console.log(result);
           dispatch({
             type: "POST_SUCCESS",
-            code: result.code,
-            status: result.status,
-            message: result.message
+            result
           });
           setAPI("");
         }
@@ -75,10 +88,10 @@ export default function usePostData() {
   }, [API]);
 
   function postData(api, params) {
-    console.log(URL + api);
-    console.log(params);
-    // setAPI(api);
-    // setParams(params);
+    // console.log(URL + api);
+    // console.log(params);
+    setAPI(api);
+    setParams(params);
   }
 
   return [state, postData];

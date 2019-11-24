@@ -1,13 +1,14 @@
 export default function modalReducer(state, action) {
   console.log(state, action);
-  const { type } = action;
+  const { type, results } = action;
   switch (type) {
     case "success":
+      const { status, message } = results;
       return {
         ...state,
         isModalVisible: true,
-        modalTitle: "Success",
-        modalMessage: "Anda Berhasil Login!"
+        modalTitle: status,
+        modalMessage: message
       };
     case "warning":
       return {

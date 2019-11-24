@@ -15,26 +15,30 @@ exports.login = router.post("/api/users/login", (req, res) => {
     if (error) {
       res.send({
         code: 400,
-        failed: "error ocurred"
+        status: "Failed",
+        message: "Error ocurred"
       });
     } else {
       if (results.length > 0) {
         if (results[0].password === password) {
           res.send({
             code: 200,
-            success: "login sucessfull",
-            data: JSON.stringify(results)
+            status: "Success",
+            message: "Login sucessfull",
+            data: results
           });
         } else {
           res.send({
             code: 204,
-            success: "username and password does not match"
+            status: "Failed",
+            message: "Username and Password does not match"
           });
         }
       } else {
         res.send({
           code: 205,
-          success: "username does not exits"
+          status: "Failed",
+          message: "Username does not exits"
         });
       }
     }
