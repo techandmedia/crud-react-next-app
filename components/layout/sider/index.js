@@ -1,9 +1,17 @@
+import { useContext } from "react";
+import { MenuContext } from "../../../utils/context/Global-Context";
 import { Layout, Menu, Icon } from "antd";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default function SideMenu() {
+  const { dispatchMenu } = useContext(MenuContext);
+
+  function handleMenuClick(e) {
+    dispatchMenu({ key: e.key });
+  }
+
   return (
     <Sider width={200} style={{ background: "#fff" }}>
       <Menu
@@ -11,9 +19,10 @@ export default function SideMenu() {
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         style={{ height: "100%" }}
+        onClick={handleMenuClick}
       >
         <SubMenu
-          key="sub1"
+          key="sub-menu-1"
           title={
             <span>
               <Icon type="user" />
@@ -21,7 +30,7 @@ export default function SideMenu() {
             </span>
           }
         >
-          <Menu.Item key="1">option1</Menu.Item>
+          <Menu.Item key="default">option1</Menu.Item>
           <Menu.Item key="2">option2</Menu.Item>
           <Menu.Item key="3">option3</Menu.Item>
           <Menu.Item key="4">option4</Menu.Item>
@@ -49,8 +58,8 @@ export default function SideMenu() {
             </span>
           }
         >
-          <Menu.Item key="9">option9</Menu.Item>
-          <Menu.Item key="10">option10</Menu.Item>
+          <Menu.Item key="profile">Profile Page</Menu.Item>
+          <Menu.Item key="preference">Preference</Menu.Item>
           <Menu.Item key="11">option11</Menu.Item>
           <Menu.Item key="12">option12</Menu.Item>
         </SubMenu>

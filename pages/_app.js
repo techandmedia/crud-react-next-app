@@ -1,5 +1,6 @@
 import React from "react";
 import App from "next/app";
+import GlobalProvider from "../utils/context/Global-Context";
 import Router from "next/router";
 import Layout from "components";
 import "../utils/style/ant-style.css";
@@ -7,14 +8,18 @@ import "../utils/style/index.css";
 
 /**
  * Preparing to use reducer here
-*/
-export default function Tes(props) {
-  return <MyApp {...props}/>;
+ */
+export default function CustomApp(props) {
+  return (
+    <GlobalProvider>
+      <MyApp {...props} />
+    </GlobalProvider>
+  );
 }
 
 class MyApp extends App {
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     user: "andri",
     password: "123"
   };

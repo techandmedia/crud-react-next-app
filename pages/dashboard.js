@@ -1,17 +1,26 @@
+import { useContext, useEffect } from "react";
+import { MenuContext, UserContext } from "../utils/context/Global-Context";
+import pages from "../modules";
+
 export default function Dashboard(props) {
-  console.log("Dashboard", props);
+  const { menu, dispatchMenu } = useContext(MenuContext);
+  const user = useContext(UserContext);
 
-  function LoginFailed() {
-    return <p>Silahkan Login untuk mengakses fitur ini</p>;
-  }
+  useEffect(() => {
+    console.log(props.isLoggedIn, pages[0]);
+  });
 
-  function LoginSuccess() {
-    return <p>Anda berhasil login</p>;
+  function renderPage() {
+    for (let i = 0; i < pages.length; i++) {
+      if (pages[i].menu === menu.menu) {
+        return <React.Fragment>{pages[i].component}</React.Fragment>;
+      }
+    }
   }
 
   return (
     <React.Fragment>
-      {props.isLoggedIn ? <LoginSuccess /> : <LoginFailed />}
+      {props.isLoggedIn ? renderPage() : pages[0].component}
     </React.Fragment>
   );
 }
