@@ -7,7 +7,7 @@ exports.login = router.post("/api/users/login", (req, res) => {
   var password = req.body.password;
   console.log(req.body);
 
-  mySQL.query("SELECT * FROM login WHERE username = ?", [username], function(
+  mySQL.query("SELECT * FROM login WHERE user_name = ?", [username], function(
     error,
     results,
     fields

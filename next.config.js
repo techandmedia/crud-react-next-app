@@ -32,6 +32,7 @@ module.exports = withCss({
     return {
       "/": { page: "/" },
       "/login": { page: "/login" },
+      "/register": { page: "/register" },
       "/contact": { page: "/contact" },
       "/dashboard": { page: "/dashboard" },
       "/about": { page: "/about" }

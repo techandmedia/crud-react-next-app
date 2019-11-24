@@ -2,7 +2,7 @@ import { Layout, Menu, Dropdown, Icon } from "antd";
 import Link from "components/link";
 
 const { Header } = Layout;
-const ContohContext = React.createContext(null);
+const UserContext = React.createContext(null);
 
 export default function TopNavigation({ isLoggedIn, logout }) {
   // console.log("Header", logout);
@@ -20,33 +20,52 @@ export default function TopNavigation({ isLoggedIn, logout }) {
           <Link href="/contact">Contact</Link>
         </Menu.Item>
         <Menu.Item key="3" style={{ float: "right" }}>
-          <ContohContext.Provider value={logout}>
-            {isLoggedIn ? <CustomDropDown /> : <Link href="/login">Login</Link>}
-          </ContohContext.Provider>
+          <UserContext.Provider value={logout}>
+            {isLoggedIn ? <Dashboard /> : <Login />}
+          </UserContext.Provider>
         </Menu.Item>
       </Menu>
     </Header>
   );
 }
 
-const menu = (
-  <ContohContext.Consumer>
+const loginMenu = (
+  <Menu>
+    <Menu.Item>
+      <Link href="/login">Login</Link>
+    </Menu.Item>
+    <Menu.Item>
+      <Link href="/register">Register</Link>
+    </Menu.Item>
+  </Menu>
+);
+
+function Login() {
+  return (
+    <Dropdown overlay={loginMenu}>
+      <a className="ant-dropdown-link" href="#">
+        <Icon type="setting" />
+      </a>
+    </Dropdown>
+  );
+}
+
+const dashboardMenu = (
+  <UserContext.Consumer>
     {logout => (
       <Menu>
-        <Menu.Item onClick={() => logout()}>
-          Logout
-        </Menu.Item>
+        <Menu.Item onClick={() => logout()}>Logout</Menu.Item>
         <Menu.Item>
           <Link href="/dashboard">Dashboard</Link>
         </Menu.Item>
       </Menu>
     )}
-  </ContohContext.Consumer>
+  </UserContext.Consumer>
 );
 
-function CustomDropDown() {
+function Dashboard() {
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown overlay={dashboardMenu}>
       <a className="ant-dropdown-link" href="#">
         <Icon type="setting" />
       </a>

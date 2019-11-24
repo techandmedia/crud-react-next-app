@@ -14,7 +14,7 @@ exports.register = router.post("/api/users/register", (req, res) => {
     const today = new Date();
     const newUser = {
       user_name: req.body.username,
-      user_full_name: req.body.fullName,
+      user_full_name: req.body.fullname,
       user_address: req.body.address,
       user_phone_number: req.body.phone,
       // Insert current time
@@ -29,20 +29,16 @@ exports.register = router.post("/api/users/register", (req, res) => {
       created: today,
       modified: today
     };
-    // console.log(newUser)
-    mySQL.query("INSERT INTO users SET ?", newUser, (err, results, fields) => {
-      mySQL.query(
-        "INSERT INTO login SET ?",
-        newLoginUser,
-        (err, results, fields) => {
-          res.send({
-            code: 200,
-            status: "Success",
-            message: "New User is successfully added"
-          });
-        }
-      );
+
+    mySQL.query("INSERT INTO users SET ?", newUser, () => {
+      res.send({
+        code: 200,
+        status: "Success",
+        message: "New User is successfully added"
+      });
     });
+
+    mySQL.query("INSERT INTO login SET ?", newLoginUser)
 
     return null;
   }
