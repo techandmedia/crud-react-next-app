@@ -2,17 +2,15 @@ const express = require("express");
 const router = express.Router();
 const mySQL = require("../config/my-sql");
 
+const query = require("./query");
+
 exports.login = router.post("/api/users/login", (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
   console.log(req.body);
 
   let user = null;
-  mySQL.query("SELECT * FROM users WHERE user_name = ?", [username], function(
-    error,
-    results,
-    fields
-  ) {
+  mySQL.query(query.userDetails, [username], function(error, results, fields) {
     console.log(results);
     user = results;
   });

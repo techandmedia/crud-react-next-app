@@ -5,8 +5,6 @@ const { Header } = Layout;
 const UserContext = React.createContext(null);
 
 export default function TopNavigation({ isLoggedIn, logout }) {
-  // console.log("Header", logout);
-  // console.log("Header", thislogout);
   return (
     <Header className="header">
       <Link href="/">
