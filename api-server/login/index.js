@@ -39,12 +39,20 @@ exports.login = router.post("/api/users/login", (req, res) => {
     } else {
       if (results.length > 0) {
         if (results[0].password === password) {
-          res.send({
-            code: 200,
-            status: "Success",
-            message: "Login sucessfull",
-            data: { user, preference }
-          });
+          if (user.length > 0) {
+            res.send({
+              code: 200,
+              status: "Success",
+              message: "Login sucessfull",
+              data: { user, preference }
+            });
+          } else {
+            res.send({
+              code: 201,
+              status: "Success",
+              message: "Your Profile is not activated, please contact Admin!"
+            });
+          }
         } else {
           res.send({
             code: 204,

@@ -132,27 +132,6 @@ class RegistrationForm extends React.Component {
       }
     ];
 
-    const LoginButton = () => (
-      <Form.Item>
-        {getFieldDecorator("remember", {
-          valuePropName: "checked",
-          initialValue: true
-        })(<Checkbox>Remember me</Checkbox>)}
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
-        </Button>
-        Or
-        <Link href="/register">
-          <a> Register Now!</a>
-        </Link>
-      </Form.Item>
-    );
-
-    let temp = login !== true && { ...formItemLayout };
-
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         {form.map(item => {
@@ -165,29 +144,6 @@ class RegistrationForm extends React.Component {
             (item.field === "password" || item.field === "confirm")
           ) {
             return null;
-          } else if (
-            this.props.login &&
-            (item.field === "password" || item.field === "username")
-          ) {
-            return (
-              <Form.Item
-                label={item.label}
-                key={item.label}
-                hasFeedback={item.hasFeedback}
-              >
-                {getFieldDecorator(item.field, {
-                  initialValue: item.initialValue,
-                  rules: item.rules
-                })(
-                  <Input
-                    placeholder={item.placeholder}
-                    onBlur={item.handleConfirmBlur}
-                    addonBefore={item.addonBefore}
-                    style={item.style}
-                  />
-                )}
-              </Form.Item>
-            );
           } else {
             return (
               <Form.Item
@@ -211,15 +167,12 @@ class RegistrationForm extends React.Component {
           }
         })}
 
-        {login !== true && (
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              {profile ? "Save" : "Register"}
-            </Button>
-          </Form.Item>
-        )}
-
-        {login && <LoginButton />}
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">
+            {profile ? "Save" : "Register"}
+          </Button>
+        </Form.Item>
+        
       </Form>
     );
   }

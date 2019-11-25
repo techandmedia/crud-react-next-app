@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useContext } from "react";
 import { Row, Col } from "antd";
 import { Form, Modal } from "components";
-import { UserContext } from "../../utils/context/Global-Context";
+import { UserContext } from "context/Global-Context";
 
 import usePostData from "api/usePostData";
 
