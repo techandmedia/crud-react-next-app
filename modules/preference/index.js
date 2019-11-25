@@ -6,7 +6,10 @@ import { UserContext } from "context/Global-Context";
 export default function Preference() {
   const { user } = useContext(UserContext);
 
-  console.log(user);
+  console.log("login-success Preference", user);
+  // useEffect(() => {
+  // }, [user]);
+
   return (
     <Row type="flex" justify="center" style={{ paddingRight: 50 }}>
       <Col>This is Preference Page</Col>

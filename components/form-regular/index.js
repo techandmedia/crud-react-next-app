@@ -49,7 +49,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { defaultValue, dashboard } = this.props;
+    const { defaultValue, profile } = this.props;
 
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
@@ -65,7 +65,7 @@ class RegistrationForm extends React.Component {
         label: "E-Mail",
         field: "username",
         placeholder: "Email will be your user name",
-        initialValue: dashboard ? defaultValue.email : "",
+        initialValue: profile ? defaultValue.user_name : "",
         rules: [
           {
             type: "email",
@@ -80,7 +80,7 @@ class RegistrationForm extends React.Component {
       {
         label: "Full Name",
         field: "fullname",
-        initialValue: dashboard ? defaultValue.fullname : "",
+        initialValue: profile ? defaultValue.user_full_name : "",
         rules: [
           {
             required: true,
@@ -120,42 +120,55 @@ class RegistrationForm extends React.Component {
       {
         label: "Address",
         field: "address",
-        initialValue: dashboard ? defaultValue.address : ""
+        initialValue: profile ? defaultValue.user_address : ""
       },
       {
         label: "Phone Number",
         field: "phone",
         addonBefore: prefixSelector,
-        initialValue: dashboard ? defaultValue.email : "",
+        initialValue: profile ? defaultValue.user_phone_number : "",
         style: { width: "100%" }
       }
     ];
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        {form.map(item => (
-          <Form.Item
-            label={item.label}
-            key={item.label}
-            hasFeedback={item.hasFeedback}
-          >
-            {getFieldDecorator(item.field, {
-              initialValue: item.initialValue,
-              rules: item.rules
-            })(
-              <Input
-                placeholder={item.placeholder}
-                onBlur={item.handleConfirmBlur}
-                addonBefore={item.addonBefore}
-                style={item.style}
-              />
-            )}
-          </Form.Item>
-        ))}
+        {form.map(item => {
+          /**
+           * For Readability, if then else
+           * is better than itinerary operator
+           */
+          if (
+            profile &&
+            (item.field === "password" || item.field === "confirm")
+          ) {
+            return null;
+          } else {
+            return (
+              <Form.Item
+                label={item.label}
+                key={item.label}
+                hasFeedback={item.hasFeedback}
+              >
+                {getFieldDecorator(item.field, {
+                  initialValue: item.initialValue,
+                  rules: item.rules
+                })(
+                  <Input
+                    placeholder={item.placeholder}
+                    onBlur={item.handleConfirmBlur}
+                    addonBefore={item.addonBefore}
+                    style={item.style}
+                  />
+                )}
+              </Form.Item>
+            );
+          }
+        })}
 
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            Register
+            {profile ? "Save" : "Register"}
           </Button>
         </Form.Item>
       </Form>

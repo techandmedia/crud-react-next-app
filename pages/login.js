@@ -13,11 +13,11 @@ function NormalLoginForm(props) {
     isModalVisible: false
   });
   const [results, postData] = usePostData();
-  const { user, dispatchUser } = useContext(UserContext);
+  const { dispatchUser } = useContext(UserContext);
 
   useEffect(() => {
-    // console.log(results);
     if (results.code === 200) {
+      console.log("login-success rendering");
       dispatchModal({ type: "success", results });
       dispatchUser({ type: "login-success", results });
       setTimeout(() => {

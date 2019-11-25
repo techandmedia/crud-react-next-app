@@ -4,11 +4,12 @@ import pages from "../modules";
 
 export default function Dashboard(props) {
   const { menu, dispatchMenu } = useContext(MenuContext);
-  const user = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(props.isLoggedIn, pages[0]);
-  });
+  // const { user, dispatchUser } = useContext(UserContext);
+
+  // useEffect(() => {
+  //   console.log(props.isLoggedIn, pages[0]);
+  // });
 
   function renderPage() {
     for (let i = 0; i < pages.length; i++) {

@@ -1,29 +1,30 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useContext } from "react";
 import { Row, Col } from "antd";
 import { Form, Modal } from "components";
-// import modalReducer from "../utils/reducers/modal-reducer";
+import { UserContext } from "../../utils/context/Global-Context";
 
 import usePostData from "api/usePostData";
 
-export default function Registration() {
-  const [results, postData] = usePostData();
-  // const [modal, dispatchModal] = useReducer(modalReducer, {
-  //   isModalVisible: false
-  // });
+let profile = true;
 
-  useEffect(() => {
-    // console.log(results);
-    if (results.code !== "") {
-      // dispatchModal({ type: "success", results });
-    }
-  }, [results]);
+export default function Registration() {
+  const { user } = useContext(UserContext);
+
+  // useEffect(() => {
+  //   console.log("login-success Profile", user);
+  // }, [user]);
 
   return (
-    <Row type="flex" justify="center" style={{ paddingRight: 50 }}>
-      <Col>
+    <Row type="flex" justify="center" gutter={16}>
+      <Col span={12}>
         {/* <Modal modal={modal} dispatchModal={dispatchModal} /> */}
-        <Form postData={postData} />
+        <Form
+          // postData={postData}
+          defaultValue={user.detail[0]}
+          profile={profile}
+        />
       </Col>
+      <Col span={12}>TES</Col>
     </Row>
   );
 }

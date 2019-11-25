@@ -1,5 +1,5 @@
 export default function menuReducer(state, action) {
-  console.log(state, action);
+  // console.log(state, action);
   const { type, results } = action;
   switch (type) {
     case "init":
@@ -7,9 +7,11 @@ export default function menuReducer(state, action) {
         ...state
       };
     case "login-success":
-      console.log(results);
+      const { data } = results;
       return {
-        ...state
+        ...state,
+        detail: data.user,
+        preference: data.preference
       };
     default:
       throw new Error();

@@ -24,6 +24,7 @@ function fetchReducer(state, action) {
         code: result.data.code,
         status: result.data.status,
         message: result.data.message,
+        data: result.data.data,
         isLoading: false,
         isError: false
       };
@@ -44,7 +45,8 @@ export default function usePostData() {
   const [state, dispatch] = useReducer(fetchReducer, {
     code: "",
     status: "",
-    message: ""
+    message: "",
+    data: ""
   });
 
   useEffect(() => {
