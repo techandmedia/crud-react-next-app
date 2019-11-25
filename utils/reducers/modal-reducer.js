@@ -10,13 +10,6 @@ export default function modalReducer(state, action) {
         modalTitle: status,
         modalMessage: message
       };
-    case "warning":
-      return {
-        ...state,
-        isModalVisible: true,
-        modalTitle: "Warning",
-        modalMessage: "Username atau Password yang Anda masukkan salah!"
-      };
     case "modal-ok":
       return { ...state, isModalVisible: false };
     case "modal-cancel":

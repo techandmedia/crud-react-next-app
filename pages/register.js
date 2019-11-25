@@ -20,7 +20,10 @@ export default function Registration() {
 
   return (
     <Row type="flex" justify="center" style={{ paddingRight: 50 }}>
-      <Col>
+      <Col span={12}>
+        <div style={{ textAlign: "center" }}>
+          <h1>Account Registration</h1>
+        </div>
         <Modal modal={modal} dispatchModal={dispatchModal} />
         <Form postData={postData} />
       </Col>

@@ -1,4 +1,5 @@
-import { Form, Input, Select, Button } from "antd";
+import Link from "next/link";
+import { Form, Input, Select, Button, Checkbox } from "antd";
 import { tailFormItemLayout, formItemLayout } from "components";
 
 const { Option } = Select;
@@ -49,7 +50,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { defaultValue, profile } = this.props;
+    const { defaultValue, profile, login } = this.props;
 
     const prefixSelector = getFieldDecorator("prefix", {
       initialValue: "62"
@@ -131,6 +132,27 @@ class RegistrationForm extends React.Component {
       }
     ];
 
+    const LoginButton = () => (
+      <Form.Item>
+        {getFieldDecorator("remember", {
+          valuePropName: "checked",
+          initialValue: true
+        })(<Checkbox>Remember me</Checkbox>)}
+        <a className="login-form-forgot" href="">
+          Forgot password
+        </a>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Log in
+        </Button>
+        Or
+        <Link href="/register">
+          <a> Register Now!</a>
+        </Link>
+      </Form.Item>
+    );
+
+    let temp = login !== true && { ...formItemLayout };
+
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         {form.map(item => {
@@ -143,6 +165,29 @@ class RegistrationForm extends React.Component {
             (item.field === "password" || item.field === "confirm")
           ) {
             return null;
+          } else if (
+            this.props.login &&
+            (item.field === "password" || item.field === "username")
+          ) {
+            return (
+              <Form.Item
+                label={item.label}
+                key={item.label}
+                hasFeedback={item.hasFeedback}
+              >
+                {getFieldDecorator(item.field, {
+                  initialValue: item.initialValue,
+                  rules: item.rules
+                })(
+                  <Input
+                    placeholder={item.placeholder}
+                    onBlur={item.handleConfirmBlur}
+                    addonBefore={item.addonBefore}
+                    style={item.style}
+                  />
+                )}
+              </Form.Item>
+            );
           } else {
             return (
               <Form.Item
@@ -166,11 +211,15 @@ class RegistrationForm extends React.Component {
           }
         })}
 
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            {profile ? "Save" : "Register"}
-          </Button>
-        </Form.Item>
+        {login !== true && (
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              {profile ? "Save" : "Register"}
+            </Button>
+          </Form.Item>
+        )}
+
+        {login && <LoginButton />}
       </Form>
     );
   }

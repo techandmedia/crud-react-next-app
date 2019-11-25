@@ -60,8 +60,7 @@ export default function SideMenu() {
         >
           <Menu.Item key="profile">Profile Page</Menu.Item>
           <Menu.Item key="preference">Preference</Menu.Item>
-          <Menu.Item key="11">option11</Menu.Item>
-          <Menu.Item key="12">option12</Menu.Item>
+          <Menu.Item key="change-password">Change Password</Menu.Item>
         </SubMenu>
       </Menu>
     </Sider>

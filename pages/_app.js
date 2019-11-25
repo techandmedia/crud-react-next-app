@@ -20,8 +20,6 @@ export default function CustomApp(props) {
 class MyApp extends App {
   state = {
     isLoggedIn: false,
-    user: "andri",
-    password: "123"
   };
 
   login = () => {

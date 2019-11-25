@@ -10,12 +10,21 @@ export default function CustomLayout(props) {
   const { isLoggedIn, currentRoute, logout } = props;
   const route = isLoggedIn && currentRoute === "/dashboard" ? true : false;
   const fullName = route && user.detail[0].user_full_name;
+  const groupName = route && user.detail[0].group_name;
 
   return (
     <Layout>
       <Header isLoggedIn={isLoggedIn} logout={logout} />
       <Content style={{ padding: route && "0 50px" }}>
-        {route && <h1 style={{ marginTop: 10 }}>Welcome {fullName}!</h1>}
+        {route && (
+          <React.Fragment>
+            <h1 style={{ marginTop: 10 }}>Welcome {fullName}!</h1>
+            <p style={{ marginTop: "-10px" }}>
+              You are logged in as
+              <span style={{ textTransform: "capitalize" }}> {groupName}</span>
+            </p>
+          </React.Fragment>
+        )}
         <Layout style={{ padding: "24px 0", background: "#fff" }}>
           {route && <SideMenu />}
 
