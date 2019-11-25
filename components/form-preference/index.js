@@ -1,4 +1,4 @@
-import { Form, Input, Button } from "antd";
+import { Form, InputNumber, Button } from "antd";
 import { tailFormItemLayout, formItemLayout } from "components";
 
 class PreferenceForm extends React.Component {
@@ -56,7 +56,9 @@ class PreferenceForm extends React.Component {
                 initialValue: item.initialValue,
                 rules: item.rules
               })(
-                <Input
+                <InputNumber
+                  min={8}
+                  max={10}
                   placeholder={item.placeholder}
                   onBlur={item.handleConfirmBlur}
                   addonBefore={item.addonBefore}

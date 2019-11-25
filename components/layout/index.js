@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { UserContext } from "context/Global-Context";
 import { Layout, Breadcrumb } from "antd";
 import Header from "./header";
@@ -10,18 +9,8 @@ export default function CustomLayout(props) {
   const { user } = React.useContext(UserContext);
   const { isLoggedIn, currentRoute, logout } = props;
   const route = isLoggedIn && currentRoute === "/dashboard" ? true : false;
-  const fullName =
-    route && user.detail[0]
-      ? user.detail[0].user_full_name
-      : "You are not in any group of user, Please contact Admin";
-  const groupName =
-    route && user.detail[0]
-      ? user.detail[0].group_name
-      : "You are not in any group of user, Please contact Admin";
-
-  useEffect(() => {
-    console.log(user);
-  });
+  const fullName = route && user.detail[0].user_full_name;
+  const groupName = route && user.detail[0].group_name;
 
   return (
     <Layout>

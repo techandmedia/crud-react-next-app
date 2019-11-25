@@ -46,7 +46,11 @@ exports.login = router.post("/api/users/login", (req, res) => {
               message: "Login sucessfull",
               data: { user, preference }
             });
-          } else {
+          } 
+          /**
+           * If a User is not yet activated, do no let them log in
+           */
+          else {
             res.send({
               code: 201,
               status: "Success",
