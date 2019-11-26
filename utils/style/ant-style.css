@@ -14,3 +14,9 @@
   font-size: 12px;
   margin-top: -4px;
 }
+
+.ant-layout-sider-trigger {
+  font-size: 22px;
+  color: white;
+  background: rgba(0, 0, 0, 0.65);
+}

@@ -27,7 +27,6 @@ export default function CustomLayout(props) {
         )}
         <Layout style={{ padding: "24px 0", background: "#fff" }}>
           {route && <SideMenu />}
-
           <Content style={{ padding: "0 24px", minHeight: 280 }}>
             {props.children}
           </Content>

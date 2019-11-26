@@ -14,47 +14,61 @@ export default function Default() {
       title: "Full Name",
       dataIndex: "user_full_name",
       key: "user_full_name",
-      editable: isAdmin
+      editable: isAdmin,
+      width: 200,
+      fixed: "left"
     },
     {
       title: "User Name",
       dataIndex: "user_name",
       key: "user_name",
+      width: 200,
       editable: isAdmin
     },
     {
       title: "Notes 1",
       dataIndex: "notes_one",
       key: "notes_one",
+      width: 200,
       editable: true
     },
     {
       title: "Notes 1",
       dataIndex: "notes_two",
       key: "notes_two",
+      width: 200,
       editable: true
     },
     {
       title: "Notes 1",
       dataIndex: "notes_three",
       key: "notes_three",
+      width: 200,
       editable: true
     },
     {
       title: "Grup",
       dataIndex: "group_name",
       key: "group_name",
+      width: 100,
       editable: isAdmin
     },
     {
-      title: "Date Created",
-      dataIndex: "created",
-      key: "created"
-    },
-    {
-      title: "Date Modified",
-      dataIndex: "modified",
-      key: "modified"
+      title: "Date",
+      children: [
+        {
+          title: "Created",
+          dataIndex: "created",
+          key: "created",
+          width: 100
+        },
+        {
+          title: "Modified",
+          dataIndex: "modified",
+          key: "modified",
+          width: 100
+        }
+      ]
     }
   ];
 
@@ -62,7 +76,12 @@ export default function Default() {
     <Row type="flex" justify="center" style={{ paddingRight: 50 }}>
       <Col span={24}>
         <h1 style={{ textAlign: "center" }}>User List</h1>
-        <Table dataSource={users} columns={columns} />
+        <Table
+          dataSource={users}
+          columns={columns}
+          size="middle"
+          scroll={{ x: "calc(700px + 50%)", y: 240 }}
+        />
       </Col>
     </Row>
   );

@@ -1,25 +1,37 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MenuContext } from "../../../utils/context/Global-Context";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Button } from "antd";
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default function SideMenu() {
   const { dispatchMenu } = useContext(MenuContext);
+  const [collapsed, setCollapsed] = useState(true);
+
+  function toggleCollapsed(coll) {
+    setCollapsed(coll);
+  }
 
   function handleMenuClick(e) {
     dispatchMenu({ key: e.key });
   }
 
   return (
-    <Sider width={200} style={{ background: "#fff" }}>
+    <Sider
+      collapsible
+      collapsed={collapsed}
+      onCollapse={toggleCollapsed}
+      width={200}
+      style={{ background: "#fff" }}
+    >
       <Menu
         mode="inline"
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         style={{ height: "100%" }}
         onClick={handleMenuClick}
+        // inlineCollapsed={collapsed}
       >
         <SubMenu
           key="sub-menu-1"

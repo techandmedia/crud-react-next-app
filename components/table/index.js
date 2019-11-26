@@ -58,6 +58,8 @@ class EditableTable extends React.Component {
       {
         title: "operation",
         dataIndex: "operation",
+        width: 100,
+        fixed: "right",
         render: (text, record) => {
           const { editingKey } = this.state;
           const editable = this.isEditing(record);
@@ -158,6 +160,8 @@ class EditableTable extends React.Component {
           pagination={{
             onChange: this.cancel
           }}
+          size={this.props.size}
+          scroll={this.props.scroll}
         />
       </EditableContext.Provider>
     );
