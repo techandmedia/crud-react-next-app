@@ -8,3 +8,9 @@
 .ant-menu-horizontal {
   line-height: 40px;
 }
+
+.editable-row .ant-form-explain {
+  position: absolute;
+  font-size: 12px;
+  margin-top: -4px;
+}

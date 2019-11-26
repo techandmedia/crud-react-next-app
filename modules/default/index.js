@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useContext } from "react";
-import { Row, Col, Table } from "antd";
-// import { Table } from "components";
+import { Row, Col } from "antd";
+import { Table } from "components";
 import { UserContext } from "context/Global-Context";
 
 export default function Default() {
@@ -11,27 +11,32 @@ export default function Default() {
     {
       title: "Full Name",
       dataIndex: "user_full_name",
-      key: "user_full_name"
+      key: "user_full_name",
+      editable: true
     },
     {
       title: "User Name",
       dataIndex: "user_name",
-      key: "user_name"
+      key: "user_name",
+      editable: true
     },
     {
       title: "Address",
       dataIndex: "user_address",
-      key: "user_address"
+      key: "user_address",
+      editable: true
     },
     {
       title: "Phone Number",
       dataIndex: "user_phone_number",
-      key: "user_phone_number"
+      key: "user_phone_number",
+      editable: true
     },
     {
       title: "User Group",
       dataIndex: "",
-      key: ""
+      key: "",
+      editable: true
     }
   ];
 
@@ -39,7 +44,7 @@ export default function Default() {
     <Row type="flex" justify="center" style={{ paddingRight: 50 }}>
       <Col span={24}>
         <h1 style={{ textAlign: "center" }}>User List</h1>
-        <Table bordered dataSource={users} columns={columns} />
+        <Table dataSource={users} columns={columns} />
       </Col>
     </Row>
   );
