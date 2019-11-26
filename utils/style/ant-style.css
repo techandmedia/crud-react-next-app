@@ -1,5 +1,8 @@
 .ant-layout-header {
+  margin: 0;
+  padding: 0;
   height: 40px;
+  background: #ffffff;
 }
 
 .ant-menu-horizontal {

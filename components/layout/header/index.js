@@ -6,28 +6,32 @@ const LoginContext = React.createContext(null);
 
 export default function TopNavigation({ isLoggedIn, logout }) {
   return (
-    <Header className="header">
-      <Link href="/">
-        <div className="logo" />
-      </Link>
-      <Menu theme="dark" mode="horizontal">
-        <Menu.Item key="1">
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Link href="/contact">
-            <a> Contact</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="3" style={{ float: "right" }}>
-          <LoginContext.Provider value={logout}>
-            {isLoggedIn ? <Dashboard /> : <Login />}
-          </LoginContext.Provider>
-        </Menu.Item>
-      </Menu>
-    </Header>
+    <div className="header">
+      <Header>
+        <Link href="/">
+          <div className="logo" />
+        </Link>
+        <Menu theme="light" mode="horizontal">
+          <Menu.Item key="1">
+            <Link href="/about">
+              <a>About</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link href="/contact">
+              <a> Contact</a>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="3" style={{ float: "right", paddingRight: "50px" }}>
+            {/* <div class="menu-setting"> */}
+              <LoginContext.Provider value={logout}>
+                {isLoggedIn ? <Dashboard /> : <Login />}
+              </LoginContext.Provider>
+            {/* </div> */}
+          </Menu.Item>
+        </Menu>
+      </Header>
+    </div>
   );
 }
 

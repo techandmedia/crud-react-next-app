@@ -1,8 +1,8 @@
 .logo {
   width: 120px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 4px 8px 0 0;
+  background: rgba(151, 26, 4, 0.815);
+  margin: 4px 8px 0 50px;
   float: left;
 }
 
@@ -16,4 +16,12 @@
 
 .login-form-button {
   width: 100%;
+}
+
+.header {
+  margin-bottom: 5px;
+}
+
+.menu-setting {
+  margin-right: 50px;
 }

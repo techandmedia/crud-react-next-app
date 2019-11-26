@@ -25,6 +25,16 @@ exports.login = router.post("/api/users/login", (req, res) => {
     }
   );
 
+  let allUsers_AdminOnly = null;
+  mySQL.query(
+    "SELECT * FROM users",
+    [username],
+    function(error, results, fields) {
+      console.log(results);
+      allUsers_AdminOnly = results;
+    }
+  );
+
   mySQL.query("SELECT * FROM login WHERE user_name = ?", [username], function(
     error,
     results,
@@ -44,13 +54,12 @@ exports.login = router.post("/api/users/login", (req, res) => {
               code: 200,
               status: "Success",
               message: "Login sucessfull",
-              data: { user, preference }
+              data: { user, preference, allUsers_AdminOnly }
             });
-          } 
+          } else {
           /**
            * If a User is not yet activated, do no let them log in
            */
-          else {
             res.send({
               code: 201,
               status: "Success",

@@ -9,7 +9,7 @@ export default function GlobalProvider(props) {
     preferredWorkingHour: 8
   });
   const [menu, dispatchMenu] = useReducer(selectMenuReducer, {
-    menu: "preference"
+    menu: "default"
   });
 
   return (

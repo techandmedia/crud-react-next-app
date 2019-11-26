@@ -30,7 +30,7 @@ export default function SideMenu() {
             </span>
           }
         >
-          <Menu.Item key="default">option1</Menu.Item>
+          <Menu.Item key="default">User List</Menu.Item>
           <Menu.Item key="2">option2</Menu.Item>
           <Menu.Item key="3">option3</Menu.Item>
           <Menu.Item key="4">option4</Menu.Item>

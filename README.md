@@ -2,23 +2,6 @@
  Crud application
 
 
-Added index in table login for field: user_name
-Added index in table users for field: user_name
-
-Added Protection in the backend to prevent unactivated user log in
-"Your Profile is not activated, please contact Admin!"
-
-New User Default Setting when registering
-1. Working Hour per Day: 8
-2. Not set to any user group, must contact admin to do so
-3. Not activated, must contact admin to be activated
-
-There are 3 Context used in this App
-1. UserContext: as a global user data after a user logged in
-2. MenuContext: a a global dispatcher to change Menu and the content of the Dashboard
-The Content of the Dasboard is called "Modules" and they are resides inside a modules folder
-3. LoginContext: a local context just to pass down a single "logout" props
-
 ## The Structure of The APP
 
 #### Framework
@@ -30,6 +13,17 @@ The Content of the Dasboard is called "Modules" and they are resides inside a mo
 I am using some features of the NextJs Framework:
 1. Built-in File Name Routing: tldr; the file name is the routing as you type and see in the address bar, for instance, index.js is a homepage (a root domain, "/"), while about.js is translated to "/about" and contact.js to "/contact"
 2. Exporting to a static html, so it's partially SSR
+
+#### New User Default Setting when registering
+1. Working Hour per Day: 8
+2. Not set to any user group, must contact admin to do so
+3. Not activated, must contact admin to be activated
+
+There are 3 Context used in this App
+1. UserContext: as a global user data after a user logged in
+2. MenuContext: a a global dispatcher to change Menu and the content of the Dashboard
+The Content of the Dasboard is called "Modules" and they are resides inside a modules folder
+3. LoginContext: a local context just to pass down a single "logout" props
 
 #### Folder & File Structure
 
@@ -51,4 +45,9 @@ Folder "pages"
 
 
 For API Server
+Added index in table login for field: user_name
+Added index in table users for field: user_name
+
+Added Protection in the backend to prevent unactivated user log in
+"Your Profile is not activated, please contact Admin!"
 1. 
