@@ -2,7 +2,7 @@ import { Layout, Menu, Dropdown, Icon } from "antd";
 import Link from "next/link";
 
 const { Header } = Layout;
-const UserContext = React.createContext(null);
+const LoginContext = React.createContext(null);
 
 export default function TopNavigation({ isLoggedIn, logout }) {
   return (
@@ -22,9 +22,9 @@ export default function TopNavigation({ isLoggedIn, logout }) {
           </Link>
         </Menu.Item>
         <Menu.Item key="3" style={{ float: "right" }}>
-          <UserContext.Provider value={logout}>
+          <LoginContext.Provider value={logout}>
             {isLoggedIn ? <Dashboard /> : <Login />}
-          </UserContext.Provider>
+          </LoginContext.Provider>
         </Menu.Item>
       </Menu>
     </Header>
@@ -57,7 +57,7 @@ function Login() {
 }
 
 const dashboardMenu = (
-  <UserContext.Consumer>
+  <LoginContext.Consumer>
     {logout => (
       <Menu>
         <Menu.Item onClick={() => logout()}>Logout</Menu.Item>
@@ -68,7 +68,7 @@ const dashboardMenu = (
         </Menu.Item>
       </Menu>
     )}
-  </UserContext.Consumer>
+  </LoginContext.Consumer>
 );
 
 function Dashboard() {

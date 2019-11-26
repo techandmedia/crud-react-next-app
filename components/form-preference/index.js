@@ -5,10 +5,10 @@ class PreferenceForm extends React.Component {
   state = {};
 
   handleSubmit = e => {
-    const { user, postData } = this.props;
+    const { user, postData, form } = this.props;
     const username = user.detail[0].user_name;
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values, user);
         postData("api/users/change-preference", {

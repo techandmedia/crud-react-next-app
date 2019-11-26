@@ -7,7 +7,7 @@ import usePostData from "api/usePostData";
 
 let profile = true;
 
-export default function Registration() {
+export default function Profile() {
   const { user } = useContext(UserContext);
 
   // useEffect(() => {
