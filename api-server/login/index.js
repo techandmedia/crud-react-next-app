@@ -62,16 +62,12 @@ exports.login = router.post("/api/users/login", (req, res) => {
                 ? query.managerWorkList
                 : query.userWorkList;
 
-            mySQL.query(userQuery, [username], function(
-              error,
-              data,
-              fields
-            ) {
+            mySQL.query(userQuery, [username], function(error, data, fields) {
               res.send({
                 code: 200,
                 status: "Success",
                 message: "Login sucessfull",
-                data: { user, preference, data, allUsers_AdminOnly }
+                data: { user, preference, data }
               });
             });
           } else {

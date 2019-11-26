@@ -13,14 +13,15 @@ module.exports = {
     `,
   adminWorkList: `
     SELECT 
+        tt.id_time_table as indx,
         us.user_full_name,
         tt.user_name,
         tt.notes_one,
         tt.notes_two,
         tt.notes_three,
         ug.group_name,
-        tt.created,
-        tt.modified
+        DATE_FORMAT(tt.created, '%d-%m-%Y') created,
+        DATE_FORMAT(tt.modified, '%d-%m-%Y') modified
     FROM
         time_table tt
             JOIN
@@ -30,14 +31,15 @@ module.exports = {
     `,
   managerWorkList: `
     SELECT 
+        tt.id_time_table as indx,
         us.user_full_name,
         tt.user_name,
         tt.notes_one,
         tt.notes_two,
         tt.notes_three,
         ug.group_name,
-        tt.created,
-        tt.modified
+        DATE_FORMAT(tt.created, '%d-%m-%Y') created,
+        DATE_FORMAT(tt.modified, '%d-%m-%Y') modified
     FROM
         time_table tt
             JOIN
@@ -49,14 +51,15 @@ module.exports = {
     `,
   userWorkList: `
     SELECT 
+        tt.id_time_table as indx,
         us.user_full_name,
         tt.user_name,
         tt.notes_one,
         tt.notes_two,
         tt.notes_three,
         ug.group_name,
-        tt.created,
-        tt.modified
+        DATE_FORMAT(tt.created, '%d-%m-%Y') created,
+        DATE_FORMAT(tt.modified, '%d-%m-%Y') modified
     FROM
         time_table tt
             JOIN

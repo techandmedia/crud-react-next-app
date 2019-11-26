@@ -12,6 +12,7 @@ export default function menuReducer(state, action) {
         ...state,
         detail: data.user,
         preference: data.preference,
+        data: data.data,
         allUsers: data.allUsers_AdminOnly
       };
     default:

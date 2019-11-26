@@ -5,49 +5,56 @@ import { UserContext } from "context/Global-Context";
 
 export default function Default() {
   const { user } = useContext(UserContext);
-  const users = user.allUsers;
-
-
-//   created: "2019-11-26T05:50:53.000Z"
-// group_name: "admin"
-// modified: "2019-11-26T05:50:53.000Z"
-// notes_one: "Satu Dua Tiga"
-// notes_three: ""
-// notes_two: "Satu Dua Tiga
-// ↵
-// ↵10001"
-// user_name: "eko.andri@icloud.com"
+  const users = user.data;
+  const profile = user.detail[0];
+  const isAdmin = profile.group_name === "admin" ? true : false;
 
   const columns = [
     {
       title: "Full Name",
       dataIndex: "user_full_name",
       key: "user_full_name",
-      editable: true
+      editable: isAdmin
     },
     {
       title: "User Name",
       dataIndex: "user_name",
       key: "user_name",
+      editable: isAdmin
+    },
+    {
+      title: "Notes 1",
+      dataIndex: "notes_one",
+      key: "notes_one",
       editable: true
     },
     {
-      title: "Address",
-      dataIndex: "user_address",
-      key: "user_address",
+      title: "Notes 1",
+      dataIndex: "notes_two",
+      key: "notes_two",
       editable: true
     },
     {
-      title: "Phone Number",
-      dataIndex: "user_phone_number",
-      key: "user_phone_number",
+      title: "Notes 1",
+      dataIndex: "notes_three",
+      key: "notes_three",
       editable: true
     },
     {
-      title: "User Group",
-      dataIndex: "",
-      key: "",
-      editable: true
+      title: "Grup",
+      dataIndex: "group_name",
+      key: "group_name",
+      editable: isAdmin
+    },
+    {
+      title: "Date Created",
+      dataIndex: "created",
+      key: "created"
+    },
+    {
+      title: "Date Modified",
+      dataIndex: "modified",
+      key: "modified"
     }
   ];
 
@@ -60,7 +67,6 @@ export default function Default() {
     </Row>
   );
 }
-
 
 // const columns = [
 //   {
