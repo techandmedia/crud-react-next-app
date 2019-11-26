@@ -51,3 +51,8 @@ Added index in table users for field: user_name
 Added Protection in the backend to prevent unactivated user log in
 "Your Profile is not activated, please contact Admin!"
 1. 
+
+
+
+#### Known Bugs and Fixed
+1. To use Ant Design Editable Table, make sure you have unique key in your data. Since I don't have key column, and I can't alias a column table name to "key", MySQL won't let me, instead I alias it with indx. And, you pass it through a rowKey props as indx. Find item.key or record.key and replace it with item.indx or record.indx

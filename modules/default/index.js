@@ -79,8 +79,9 @@ export default function Default() {
         <Table
           dataSource={users}
           columns={columns}
-          size="middle"
+          size="small"
           scroll={{ x: "calc(700px + 50%)", y: 240 }}
+          rowKey="indx"
         />
       </Col>
     </Row>
