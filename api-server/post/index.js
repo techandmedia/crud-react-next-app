@@ -81,7 +81,7 @@ exports.register = router.post("/api/users/register", (req, res) => {
   });
 });
 
-exports.register = router.post("/api/users/change-preference", (req, res) => {
+exports.preference = router.post("/api/users/change-preference", (req, res) => {
   const username = req.body.username;
 
   const newPreference = {
@@ -97,6 +97,41 @@ exports.register = router.post("/api/users/change-preference", (req, res) => {
           code: 400,
           status: "Failed",
           message: "error ocurred"
+        });
+      } else {
+        res.send({
+          code: 200,
+          status: "Success",
+          message: "Update Success",
+          data: results
+        });
+      }
+    }
+  );
+});
+
+exports.updatetask = router.post("/api/users/update-task", (req, res) => {
+  const body = req.body;
+
+  console.log(body);
+  const ID = req.body.indx;
+  const updatedTask = {
+    user_name: req.body.user_name,
+    notes_one: req.body.notes_one,
+    notes_two: req.body.notes_two,
+    notes_three: req.body.notes_three,
+  };
+
+
+  mySQL.query(
+    "UPDATE time_table SET ? WHERE id_time_table = ?",
+    [updatedTask, ID],
+    function(error, results, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          status: "Failed",
+          message: error
         });
       } else {
         res.send({

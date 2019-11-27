@@ -2,12 +2,20 @@ import { useEffect, useReducer, useContext } from "react";
 import { Row, Col } from "antd";
 import { Table } from "components";
 import { UserContext } from "context/Global-Context";
+import usePostData from "api/usePostData";
 
 export default function Default() {
   const { user } = useContext(UserContext);
   const users = user.data;
   const profile = user.detail[0];
   const isAdmin = profile.group_name === "admin" ? true : false;
+
+  const [results, postData] = usePostData();
+
+  useEffect(() => {
+    console.log("UPDATE", results);
+    console.log(user);
+  });
 
   const columns = [
     {
@@ -33,14 +41,14 @@ export default function Default() {
       editable: true
     },
     {
-      title: "Notes 1",
+      title: "Notes 2",
       dataIndex: "notes_two",
       key: "notes_two",
       width: 200,
       editable: true
     },
     {
-      title: "Notes 1",
+      title: "Notes 3",
       dataIndex: "notes_three",
       key: "notes_three",
       width: 200,
@@ -82,6 +90,7 @@ export default function Default() {
           size="small"
           scroll={{ x: "calc(700px + 50%)", y: 240 }}
           rowKey="indx"
+          postData={postData}
         />
       </Col>
     </Row>

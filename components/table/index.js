@@ -54,7 +54,7 @@ class EditableCell extends React.Component {
  * Since I don't have key column, and I can't alias a column table name to "key"
  * MySQL won't let me, instead I alias it with indx
  * And, you pass it through a rowKey props as indx
- * 
+ *
  * Find item.key or record.key and replace it with item.indx or record.indx
  */
 
@@ -70,7 +70,7 @@ class EditableTable extends React.Component {
         width: 100,
         fixed: "right",
         render: (text, record) => {
-          console.log
+          console.log;
           const { editingKey } = this.state;
           const editable = this.isEditing(record);
           return editable ? (
@@ -119,16 +119,30 @@ class EditableTable extends React.Component {
       }
       const newData = [...this.state.data];
       const index = newData.findIndex(item => key === item.indx);
+      /**
+       * If array is not empty
+       */
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
           ...item,
           ...row
         });
+        /**
+         * Let this setState here first and see if it acceptable
+         */
         this.setState({ data: newData, editingKey: "" });
+        const updatedData = newData[index];
+        console.log("MAU SAVE NEWDATA", updatedData);
+        this.props.postData("api/users/update-task", updatedData);
       } else {
+        /**
+         * If array is empty
+         */
         newData.push(row);
         this.setState({ data: newData, editingKey: "" });
+        console.log(newData);
+        this.props.postData("api/users/new-task", newData);
       }
     });
   }
@@ -136,9 +150,8 @@ class EditableTable extends React.Component {
   edit(key) {
     this.setState({ editingKey: key });
   }
-  
+
   render() {
-    console.log("render render", this.isEditing);
     const components = {
       body: {
         cell: EditableCell
