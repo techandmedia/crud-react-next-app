@@ -81,6 +81,26 @@ exports.register = router.post("/api/users/register", (req, res) => {
   });
 });
 
+exports.register = router.post("/api/task/new-task", (req, res) => {
+  console.log(req.body);
+
+  // mySQL.query("INSERT INTO users SET ?", newUser, () => {
+  //   if (error) {
+  //     res.send({
+  //       code: 400,
+  //       status: "Failed",
+  //       message: "error ocurred"
+  //     });
+  //   } else {
+  //     res.send({
+  //       code: 200,
+  //       status: "Success",
+  //       message: "New User is successfully added"
+  //     });
+  //   }
+  // });
+});
+
 exports.preference = router.post("/api/users/change-preference", (req, res) => {
   const username = req.body.username;
 
@@ -113,15 +133,45 @@ exports.preference = router.post("/api/users/change-preference", (req, res) => {
 exports.updatetask = router.post("/api/users/update-task", (req, res) => {
   const body = req.body;
 
-  console.log(body);
+  // console.log(body);
   const ID = req.body.indx;
+  let tempID =
+    req.body.group_name === "admin"
+      ? 10001
+      : req.body.group_name === "manager"
+      ? 10005
+      : req.body.group_name === "user" && 10010;
+
+  /**
+   * This wont work due to the nature async
+   */
+  // mySQL.query(
+  //   "SELECT * FROM user_group WHERE group_name = ?",
+  //   req.body.group_name,
+  //   function(err, res) {
+  //     tempID = res.id_group;
+  //   }
+  // );
+
+  // console.log("FIND ID ============", tempID);
+
   const updatedTask = {
+    id_group: tempID,
     user_name: req.body.user_name,
     notes_one: req.body.notes_one,
     notes_two: req.body.notes_two,
-    notes_three: req.body.notes_three,
+    notes_three: req.body.notes_three
   };
 
+  const updatedUser = {
+    user_full_name: req.body.user_full_name,
+    user_name: req.body.user_name
+  };
+
+  mySQL.query("UPDATE users SET ? WHERE user_name = ?", [
+    updatedUser,
+    req.body.user_name
+  ]);
 
   mySQL.query(
     "UPDATE time_table SET ? WHERE id_time_table = ?",

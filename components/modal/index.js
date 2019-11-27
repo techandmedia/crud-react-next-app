@@ -17,6 +17,7 @@ export default function CustomModal(props) {
       onCancel={handleCancel}
     >
       <p>{props.modal.modalMessage}</p>
+      {props.children}
     </Modal>
   );
 }
