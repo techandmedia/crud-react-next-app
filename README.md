@@ -104,6 +104,74 @@ function YourComponent() {
 }
 ```
 
+2. Custom Sider Menu. Menu is now stateless, which now only received state from modules. Modules are what I called "pages" that rendered in the dashboard. Example of these pages are: User List, Report Table, User Profile, User Preference, Change Password and so on.
+This makes the App highly flexible, where you can just add or remove "pages" easily from an array. Example is below
+
+```js
+const subMenu = [
+  {
+    key: "sub-menu-1",
+    title: (
+      <span>
+        <Icon type="user" />
+        Your Dashboard
+      </span>
+    ),
+    children: [
+      {
+        key: "default",
+        title: "Main Dashboard",
+        component: <Default />
+      },
+      {
+        key: "user-list",
+        title: "User List"
+      }
+    ]
+  },
+  {
+    key: "sub-menu-2",
+    title: (
+      <span>
+        <Icon type="laptop" />
+        Tambahan
+      </span>
+    ),
+    children: [
+      {
+        key: "20",
+        title: "Main Dashboard"
+      }
+    ]
+  },
+  {
+    key: "sub-menu-3",
+    title: (
+      <span>
+        <Icon type="notification" />
+        User Profile
+      </span>
+    ),
+    children: [
+      {
+        key: "profile",
+        title: "Profile",
+        component: <Profile />
+      },
+      {
+        key: "preference",
+        title: "Preference",
+        component: <Preference />
+      },
+      {
+        key: "change-password",
+        title: "Change Password"
+      }
+    ]
+  }
+];
+```
+
 #### Known Bugs and Fixed
 
 1. To use Ant Design Editable Table, make sure you have unique key in your data. Since I don't have key column, and I can't alias a column table name to "key", MySQL won't let me, instead I alias it with indx. And, you pass it through a rowKey props as indx. Find item.key or record.key and replace it with item.indx or record.indx
