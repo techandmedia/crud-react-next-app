@@ -1,25 +1,102 @@
+import { Icon } from "antd";
 import Default from "./default";
 import Profile from "./profile/";
 import Preference from "./preference";
 import LoginFailed from "./login-failed";
 
-const pages = [
+/**
+ * Additional Pages is for pages that do not have menu but usefull like
+ * error page, login failed pages, etc
+ */
+const additional_pages = [
   {
-    menu: "login-failed",
+    key: "login-failed",
     component: <LoginFailed />
-  },
-  {
-    menu: "default",
-    component: <Default />
-  },
-  {
-    menu: "profile",
-    component: <Profile />
-  },
-  {
-    menu: "preference",
-    component: <Preference />
   }
 ];
 
+const subMenu = [
+  {
+    key: "sub-menu-1",
+    title: (
+      <span>
+        <Icon type="user" />
+        Your Dashboard
+      </span>
+    ),
+    children: [
+      {
+        key: "default",
+        title: "Main Dashboard",
+        component: <Default />
+      },
+      {
+        key: "user-list",
+        title: "User List"
+      },
+      {
+        key: "work-list",
+        title: "Work List"
+      }
+    ]
+  },
+  {
+    key: "sub-menu-2",
+    title: (
+      <span>
+        <Icon type="laptop" />
+        Tambahan
+      </span>
+    ),
+    children: [
+      {
+        key: "20",
+        title: "Main Dashboard"
+      },
+      {
+        key: "21",
+        title: "User List"
+      },
+      {
+        key: "22",
+        title: "Work List"
+      }
+    ]
+  },
+  {
+    key: "sub-menu-3",
+    title: (
+      <span>
+        <Icon type="notification" />
+        User Profile
+      </span>
+    ),
+    children: [
+      {
+        key: "profile",
+        title: "Profile",
+        component: <Profile />
+      },
+      {
+        key: "preference",
+        title: "Preference",
+        component: <Preference />
+      },
+      {
+        key: "change-password",
+        title: "Change Password"
+      }
+    ]
+  }
+];
+
+const pages = [...additional_pages];
+
+subMenu.forEach(item => {
+  item.children.forEach(el =>
+    pages.push({ key: el.key, component: el.component })
+  );
+});
+
+export { subMenu };
 export default pages;

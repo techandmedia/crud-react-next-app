@@ -63,7 +63,7 @@ Added Protection in the backend to prevent unactivated user log in
 ```js
 import { useReducer } from "react";
 import { Modal } from "components";
-import modalReducer from "../utils/reducers/modal-reducer";
+import modalReducer from "utils/reducers/modal-reducer";
 
 function YourComponent() {
   const [modal, dispatchModal] = useReducer(modalReducer, {
@@ -72,7 +72,7 @@ function YourComponent() {
 
   /**
    * When you call modal and want to send some attributs
-   * this is inside
+   * this is inside a modal reducer
    * const { status, message } = results;
    * this result is coming from the backend
    *
