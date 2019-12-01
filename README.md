@@ -84,6 +84,12 @@ function YourComponent() {
   dispatchModal({ type: "success", results });
 
   /**
+   * If you only want to display Modal, don't use the "success" type
+   * as it requires results
+   */
+  dispatchModal({ type: "modal-show" });
+
+  /**
    * Call this when you want to close the modal
    * Currently, pressing ok doesn't do additional function
    */
@@ -105,7 +111,7 @@ function YourComponent() {
 ```
 
 2. Custom Sider Menu. Menu is now stateless, which now only received state from modules. Modules are what I called "pages" that rendered in the dashboard. Example of these pages are: User List, Report Table, User Profile, User Preference, Change Password and so on.
-This makes the App highly flexible, where you can just add or remove "pages" easily from an array. Example is below
+   This makes the App highly flexible, where you can just add or remove "pages" easily from an array. Example is below
 
 ```js
 const subMenu = [

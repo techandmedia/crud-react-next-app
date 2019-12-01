@@ -10,10 +10,22 @@ export default function modalReducer(state, action) {
         modalTitle: status,
         modalMessage: message
       };
+    case "modal-show":
+      return { ...state, isModalVisible: true };
     case "modal-ok":
-      return { ...state, isModalVisible: false };
+      return {
+        ...state,
+        isModalVisible: false,
+        modalTitle: "",
+        modalMessage: ""
+      };
     case "modal-cancel":
-      return { ...state, isModalVisible: false };
+      return {
+        ...state,
+        isModalVisible: false,
+        modalTitle: "",
+        modalMessage: ""
+      };
     default:
       throw new Error();
   }

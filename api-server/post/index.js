@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mySQL = require("../config/my-sql");
+const query = require('../get/query')
 
 exports.register = router.post("/api/users/register", (req, res) => {
   // console.log(req.body);
@@ -193,6 +194,66 @@ exports.updatetask = router.post("/api/users/update-task", (req, res) => {
       }
     }
   );
+});
+
+exports.tambahDosen = router.post("/api/dosen/tambah", (req, res) => {
+  // console.log(req.body);
+  const id_dosen = req.body.id_dosen;
+
+  function addUser() {
+    const today = new Date();
+    const newUser = {
+      id_dosen: req.body.id_dosen,
+      nama_dosen: req.body.fullname,
+      created: today,
+      modified: today
+    };
+
+    mySQL.query("INSERT INTO dosen SET ?", newUser, (error, results) => {
+      mySQL.query(query.dosenList, (error, results) => {
+        console.log(results);
+        res.send({
+          code: 200,
+          status: "Dosen",
+          message: "Berhasil menambah Dosen",
+          data: results
+        });
+      });
+    });
+
+    return null;
+  }
+
+  mySQL.query("SELECT * FROM dosen WHERE id_dosen = ?", [id_dosen], function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) {
+      res.send({
+        code: 400,
+        status: "Failed",
+        message: error
+      });
+    } else {
+      if (results.length > 0) {
+        if (results[0].id_dosen === id_dosen) {
+          res.send({
+            code: 205,
+            status: "Failed",
+            message: "ID Dosen sudah ada"
+          });
+        }
+      } else {
+        /**
+         * if results.length === 0
+         * add user
+         */
+
+        addUser();
+      }
+    }
+  });
 });
 
 module.exports = router;

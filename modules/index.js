@@ -4,6 +4,9 @@ import Profile from "./profile/";
 import Preference from "./preference";
 import LoginFailed from "./login-failed";
 
+// DEMO
+import DaftarDosen from "./daftar-dosen/DaftarDosen";
+
 /**
  * Additional Pages is for pages that do not have menu but usefull like
  * error page, login failed pages, etc
@@ -50,8 +53,9 @@ const subMenu = [
     ),
     children: [
       {
-        key: "20",
-        title: "Main Dashboard"
+        key: "dosen",
+        title: "Daftar Dosen",
+        component: <DaftarDosen />
       },
       {
         key: "21",
