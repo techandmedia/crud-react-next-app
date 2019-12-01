@@ -1,3 +1,4 @@
+import { CreateTaskDTO } from './dto/create-task.dto';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './tasks.model';
@@ -14,13 +15,25 @@ export class TasksController {
   @Post()
   // createTask(@Body() body) {
   createTask(
-    @Body('title') title: string,
-    @Body('description') description: string,
-    ) {
+    // Menggunakan DTO (Data Transfer Object)
+    // Agar controller ini tidak perlu memperdulikan
+    // bagaimana bentuk (shape) suatu model (parameter)
+    // Dengan menggunakan DTO, kita tidak perlu lagi
+    // Mendeskripsikan masing-masing dari parameter seperti
+    // title dan description
+    // Cukup melakukan perubahan di DTO, dan akan terefleksi
+    // di controller dan di service
+    @Body() createTaskDto: CreateTaskDTO
+    // @Body('title') title: string,
+    // @Body('description') description: string,
+    ): Task {
     // console.log('Body', title, description);
+    // console.log('Body', title, description);
+    
     // tslint:disable-next-line: no-console
-    console.log('Body', title, description);
+    console.log('Body', createTaskDto);
 
-    return this.tasksService.createTask(title, description);
+    return this.tasksService.createTask(createTaskDto);
+    // return this.tasksService.createTask(title, description);
   }
 }
