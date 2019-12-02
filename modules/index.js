@@ -5,7 +5,7 @@ import Preference from "./preference";
 import LoginFailed from "./login-failed";
 
 // DEMO
-import DaftarDosen from "./daftar-dosen/DaftarDosen";
+import DaftarDosen from "./daftar-dosen";
 
 /**
  * Additional Pages is for pages that do not have menu but usefull like

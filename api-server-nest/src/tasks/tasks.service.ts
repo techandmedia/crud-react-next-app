@@ -11,6 +11,10 @@ export class TasksService {
     return this.tasks;
   }
 
+  getTaskById(id: string): Task {
+    return this.tasks.find(task => task.id === id);
+  }
+
   createTask(createTaskDto: CreateTaskDTO): Task {
     // Menggunakan DTO (Data Transfer Object)
     // Agar controller ini tidak perlu memperdulikan
