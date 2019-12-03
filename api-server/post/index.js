@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mySQL = require("../config/my-sql");
-const query = require('../get/query')
+const query = require("../get/query");
 
 exports.register = router.post("/api/users/register", (req, res) => {
   // console.log(req.body);
@@ -82,24 +82,41 @@ exports.register = router.post("/api/users/register", (req, res) => {
   });
 });
 
-exports.register = router.post("/api/task/new-task", (req, res) => {
-  console.log(req.body);
+exports.newTask = router.post("/api/task/new-task", (req, res) => {
+  // const body = req.body;
+  const today = new Date();
+  // console.log(body);
 
-  // mySQL.query("INSERT INTO users SET ?", newUser, () => {
-  //   if (error) {
-  //     res.send({
-  //       code: 400,
-  //       status: "Failed",
-  //       message: "error ocurred"
-  //     });
-  //   } else {
-  //     res.send({
-  //       code: 200,
-  //       status: "Success",
-  //       message: "New User is successfully added"
-  //     });
-  //   }
-  // });
+  const newTask = {
+    id_group: req.body.id_group,
+    user_name: req.body.user_name,
+    notes_one: req.body.notes_one,
+    notes_two: req.body.notes_two,
+    notes_three: req.body.notes_three,
+    created: today,
+    modified: today
+  };
+
+  mySQL.query("INSERT INTO time_table SET ?", newTask, function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) {
+      res.send({
+        code: 400,
+        status: "Failed",
+        message: error
+      });
+    } else {
+      res.send({
+        code: 200,
+        status: "Success",
+        message: "Task Added",
+        data: results
+      });
+    }
+  });
 });
 
 exports.preference = router.post("/api/users/change-preference", (req, res) => {
@@ -156,7 +173,7 @@ exports.updatetask = router.post("/api/users/update-task", (req, res) => {
 
   // console.log("FIND ID ============", tempID);
 
-  const updatedTask = {
+  const groupUpdated = {
     id_group: tempID,
     user_name: req.body.user_name,
     notes_one: req.body.notes_one,
@@ -176,7 +193,7 @@ exports.updatetask = router.post("/api/users/update-task", (req, res) => {
 
   mySQL.query(
     "UPDATE time_table SET ? WHERE id_time_table = ?",
-    [updatedTask, ID],
+    [groupUpdated, ID],
     function(error, results, fields) {
       if (error) {
         res.send({
@@ -254,6 +271,44 @@ exports.tambahDosen = router.post("/api/dosen/tambah", (req, res) => {
       }
     }
   });
+});
+
+exports.updateUserGroup = router.post("/api/users/update-group", (req, res) => {
+  console.log(req.body);
+  const ID = req.body.indx;
+  let tempID =
+    req.body.group_name.toLowerCase() === "admin"
+      ? 10001
+      : req.body.group_name.toLowerCase() === "manager"
+      ? 10005
+      : req.body.group_name.toLowerCase() === "user" && 10010;
+
+  const groupUpdated = {
+    id_group: tempID
+  };
+
+  // UPDATE `login` SET `id_group` = '10005' WHERE `login`.`id_login` = 5;
+
+  mySQL.query(
+    "UPDATE login SET ? WHERE id_login = ?",
+    [groupUpdated, ID],
+    function(error, results, fields) {
+      if (error) {
+        res.send({
+          code: 400,
+          status: "Failed",
+          message: error
+        });
+      } else {
+        res.send({
+          code: 200,
+          status: "Success",
+          message: "Update Success",
+          data: results
+        });
+      }
+    }
+  );
 });
 
 module.exports = router;

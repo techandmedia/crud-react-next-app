@@ -2,6 +2,7 @@ import { Icon } from "antd";
 import Default from "./default";
 import Profile from "./profile/";
 import Preference from "./preference";
+import UserList from './user-list'
 import LoginFailed from "./login-failed";
 
 // DEMO
@@ -30,43 +31,44 @@ const subMenu = [
     children: [
       {
         key: "default",
-        title: "Main Dashboard",
+        title: "Tasks List",
         component: <Default />
       },
       {
         key: "user-list",
-        title: "User List"
+        title: "User List",
+        component: <UserList />
       },
-      {
-        key: "work-list",
-        title: "Work List"
-      }
+      // {
+      //   key: "work-list",
+      //   title: "Work List"
+      // }
     ]
   },
-  {
-    key: "sub-menu-2",
-    title: (
-      <span>
-        <Icon type="laptop" />
-        Tambahan
-      </span>
-    ),
-    children: [
-      {
-        key: "dosen",
-        title: "Daftar Dosen",
-        component: <DaftarDosen />
-      },
-      {
-        key: "21",
-        title: "User List"
-      },
-      {
-        key: "22",
-        title: "Work List"
-      }
-    ]
-  },
+  // {
+  //   key: "sub-menu-2",
+  //   title: (
+  //     <span>
+  //       <Icon type="laptop" />
+  //       Tambahan
+  //     </span>
+  //   ),
+  //   children: [
+  //     {
+  //       key: "dosen",
+  //       title: "Daftar Dosen",
+  //       component: <DaftarDosen />
+  //     },
+  //     {
+  //       key: "21",
+  //       title: "User List"
+  //     },
+  //     {
+  //       key: "22",
+  //       title: "Work List"
+  //     }
+  //   ]
+  // },
   {
     key: "sub-menu-3",
     title: (

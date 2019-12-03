@@ -16,6 +16,7 @@ export default function SideMenu() {
   }
 
   function handleMenuClick(e) {
+    console.log("SIDEBAR", e);
     dispatchMenu({ key: e.key });
   }
 
@@ -29,7 +30,7 @@ export default function SideMenu() {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["default"]}
         defaultOpenKeys={["sub1"]}
         style={{ height: "100%" }}
         onClick={handleMenuClick}

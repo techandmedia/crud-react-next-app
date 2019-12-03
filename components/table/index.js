@@ -134,7 +134,7 @@ class EditableTable extends React.Component {
         this.setState({ data: newData, editingKey: "" });
         const updatedData = newData[index];
         console.log("MAU SAVE NEWDATA", updatedData);
-        this.props.postData("api/users/update-task", updatedData);
+        this.props.postData(this.props.API, updatedData);
       } else {
         /**
          * If array is empty
@@ -142,7 +142,7 @@ class EditableTable extends React.Component {
         newData.push(row);
         this.setState({ data: newData, editingKey: "" });
         console.log(newData);
-        this.props.postData("api/users/new-task", newData);
+        this.props.postData(this.props.API, updatedData);
       }
     });
   }
@@ -205,6 +205,8 @@ class EditableTable extends React.Component {
           size={this.props.size}
           scroll={this.props.scroll}
           rowKey={this.props.rowKey}
+          loading={this.props.loading}
+          rowClassName={this.props.rowClassName}
         />
       </EditableContext.Provider>
     );

@@ -71,7 +71,7 @@ export default function usePostData() {
             type: "POST_SUCCESS",
             result
           });
-          setAPI("");
+          // setAPI("");
         }
       } catch (error) {
         if (!didCancel) {
@@ -87,7 +87,8 @@ export default function usePostData() {
     return () => {
       didCancel = true;
     };
-  }, [API]);
+  // }, []);
+}, [API, params]);
 
   function postData(api, params) {
     // console.log(URL + api);

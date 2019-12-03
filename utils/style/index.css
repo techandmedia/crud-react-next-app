@@ -25,3 +25,22 @@
 .menu-setting {
   margin-right: 50px;
 }
+
+.row-under-working {
+  background-color: red;
+}
+
+.row-under-working:hover {
+  color: red;
+  background-color: white;
+}
+
+.row-same-working {
+  color: white;
+  background-color: #3c784a;
+}
+
+.row-same-working:hover {
+  color: #3c784a;
+  background-color: white;
+}

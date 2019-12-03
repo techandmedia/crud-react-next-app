@@ -1,8 +1,8 @@
 import { useState, useEffect, useReducer, useContext } from "react";
-import { RouteContext } from "utils/context/Global-Context";
-import { DEFAULT_URL as BASE_URL } from "../context/general-setup";
 import axios from "axios";
 import config from "./config";
+
+const URL = config.URL;
 
 // ===== USE REDUCER ==========
 function fetchReducer(state, action) {
@@ -35,50 +35,34 @@ function fetchReducer(state, action) {
 export default function useFetchData(initialAPI, additionalParameters) {
   const [API, setAPI] = useState(initialAPI);
   const [params, setParams] = useState(additionalParameters);
-  let [URL] = useContext(RouteContext);
-
   const [state, dispatch] = useReducer(fetchReducer, {
     isLoading: true,
     isError: false,
     data: []
   });
 
-  let credentials = {
-    inputUsername: config.USERNAME,
-    inputUserkey: config.PASSWORD
-  };
-
-  useEffect(() => {
-    setAPI(initialAPI);
-    setParams(Object.assign(credentials, additionalParameters));
-  }, []);
-
   useEffect(() => {
     let didCancel = false;
-    let newParams = Object.assign(credentials, params);
-    URL = API.includes("/") ? BASE_URL : URL;
-
-    let axiosPostBody = { request: newParams };
-    console.log(URL);
-    console.log(API);
-    console.log(axiosPostBody);
 
     async function getData() {
       dispatch({ type: "FETCH_INIT" });
 
       try {
-        const result = await axios.post(URL + API, axiosPostBody);
-        console.log(result.data.response);
+        const options = {
+          method: "get",
+          url: URL + API,
+          xsrfCookieName: "XSRF-TOKEN",
+          xsrfHeaderName: "X-XSRF-TOKEN"
+        };
+        const result = await axios(options);
+        console.log("UPDATE", result);
 
         if (!didCancel) {
-          dispatch({ type: "FETCH_SUCCESS", payload: result.data.response });
+          dispatch({ type: "FETCH_SUCCESS", payload: result.data });
           setAPI("");
         }
       } catch (error) {
         console.log(error);
-        console.log(URL);
-        console.log(API);
-        console.log(axiosPostBody);
         if (!didCancel) {
           dispatch({ type: "FETCH_FAILURE" });
         }
