@@ -71,7 +71,8 @@ export default function usePostData() {
             type: "POST_SUCCESS",
             result
           });
-          // setAPI("");
+          setAPI("");
+          setParams("")
         }
       } catch (error) {
         if (!didCancel) {

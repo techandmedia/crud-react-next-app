@@ -11,7 +11,7 @@ module.exports = {
     FROM
         dosen
     `,
-  userList: `
+  adminUserList: `
     SELECT 
         lo.id_login AS indx,
         us.user_full_name,
@@ -23,6 +23,34 @@ module.exports = {
         login lo
             JOIN
                 users us ON us.user_name = lo.user_name
+    `,
+  managerUserList: `
+    SELECT 
+        lo.id_login AS indx,
+        us.user_full_name,
+        us.user_name,
+        lo.id_group,
+        DATE_FORMAT(lo.created, ${DATETIME_FORMAT}) created,
+        DATE_FORMAT(lo.modified, ${DATETIME_FORMAT}) modified
+    FROM
+        login lo
+            JOIN
+                users us ON us.user_name = lo.user_name
+    WHERE tt.id_group != 10001
+    `,
+  userUserList: `
+    SELECT 
+        lo.id_login AS indx,
+        us.user_full_name,
+        us.user_name,
+        lo.id_group,
+        DATE_FORMAT(lo.created, ${DATETIME_FORMAT}) created,
+        DATE_FORMAT(lo.modified, ${DATETIME_FORMAT}) modified
+    FROM
+        login lo
+            JOIN
+                users us ON us.user_name = lo.user_name
+    WHERE tt.user_name = ?
     `,
   userDetails: `
       SELECT

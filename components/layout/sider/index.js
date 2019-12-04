@@ -31,7 +31,7 @@ export default function SideMenu() {
       <Menu
         mode="inline"
         defaultSelectedKeys={["default"]}
-        defaultOpenKeys={["sub1"]}
+        // defaultOpenKeys={["sub-menu-1"]}
         style={{ height: "100%" }}
         onClick={handleMenuClick}
         // inlineCollapsed={collapsed}

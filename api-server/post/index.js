@@ -195,6 +195,7 @@ exports.updatetask = router.post("/api/users/update-task", (req, res) => {
     "UPDATE time_table SET ? WHERE id_time_table = ?",
     [groupUpdated, ID],
     function(error, results, fields) {
+      console.log("UPDATE TASKS =================", results);
       if (error) {
         res.send({
           code: 400,

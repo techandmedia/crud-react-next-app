@@ -194,6 +194,7 @@ class EditableTable extends React.Component {
     return (
       <EditableContext.Provider value={this.props.form}>
         <Table
+          // key={this.props.key}
           components={components}
           bordered
           dataSource={this.state.data}

@@ -10,9 +10,17 @@ export default function UserList() {
   // const users = user.data;
   const profile = user.detail[0];
   const isAdmin = profile.group_name === "admin" ? true : false;
+  const id_group =
+    profile.group_name === "admin"
+      ? 10001
+      : profile.group_name === "manager"
+      ? 10005
+      : 10010;
+  const user_name = profile.user_name;
   const API_TO_CHANGE_USER_GROUP = "api/users/update-group";
+  const API_USER_LIST = "api/users/list";
 
-  const [results, refetch] = useFecthData("api/users/list");
+  const [results, refetch] = usePostData();
   const [responds, postData] = usePostData();
 
   const [data, setData] = useState([]);
@@ -34,27 +42,31 @@ export default function UserList() {
   ];
 
   useEffect(() => {
-    console.log(results);
-    // if (!results.isLoading) {
-    //   let temp = results.data.map(item => ({
-    //     indx: item.indx,
-    //     created: item.created,
-    //     group_name:
-    //       group.find(el => item.id_group === el.id_group) === undefined
-    //         ? "User is not activated"
-    //         : group.find(el => item.id_group === el.id_group).group_name,
-    //     modified: item.modified,
-    //     user_full_name: item.user_full_name,
-    //     user_name: item.user_name
-    //   }));
-    //   setData(temp);
-    //   setLoading(false);
-    // }
-  }, [results]);
+    refetch(API_USER_LIST, { id_group, user_name });
+  }, []);
 
   useEffect(() => {
-    console.log(responds);
-  }, [responds]);
+    if (!results.isLoading && results.code === 200) {
+      console.log(results);
+      let temp = results.data.map(item => ({
+        indx: item.indx,
+        created: item.created,
+        group_name:
+          group.find(el => item.id_group === el.id_group) === undefined
+            ? "User is not activated"
+            : group.find(el => item.id_group === el.id_group).group_name,
+        modified: item.modified,
+        user_full_name: item.user_full_name,
+        user_name: item.user_name
+      }));
+      setData(temp);
+      setLoading(false);
+    }
+  }, [results]);
+
+  // useEffect(() => {
+  //   console.log(responds);
+  // }, [user]);
 
   const columns = [
     {
