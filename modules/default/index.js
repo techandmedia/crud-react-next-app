@@ -75,7 +75,8 @@ export default function TaskList() {
           scroll={{ x: "calc(700px + 50%)", y: 240 }}
           rowKey="indx"
           postData={postData}
-          API={dataUser.API_FOR_UPDATE_TASK}
+          API_UPDATE={dataUser.API_FOR_UPDATE_TASK}
+          API_DELETE={dataUser.API_TO_DELETE_TASK}
           loading={dataUser.isLoading}
           rowClassName={(record, index) => {
             // console.log("RECORD", record, index);

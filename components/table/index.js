@@ -120,6 +120,7 @@ class EditableTable extends React.Component {
     }
     if (key === "2") {
       console.log("abc1", key, "+ ", indx);
+      this.props.postData(this.props.API_DELETE, { indx });
       message.info(`Click on item ${key} ${indx}`);
     }
   };
@@ -178,7 +179,7 @@ class EditableTable extends React.Component {
         this.setState({ data: newData, editingKey: "" });
         const updatedData = newData[index];
         console.log("MAU SAVE NEWDATA", updatedData);
-        this.props.postData(this.props.API, updatedData);
+        this.props.postData(this.props.API_UPDATE, updatedData);
       } else {
         /**
          * If array is empty

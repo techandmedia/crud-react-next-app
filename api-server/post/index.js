@@ -313,9 +313,9 @@ exports.updateUserGroup = router.post("/api/users/update-group", (req, res) => {
 });
 
 exports.updatetask = router.post("/api/users/delete-task", (req, res) => {
-  console.log(body);
   const body = req.body;
   const ID = req.body.indx;
+  console.log(body, ID);
 
   mySQL.query("DELETE FROM time_table WHERE id_time_table = ?", ID, function(
     error,
