@@ -25,6 +25,11 @@ Crud application
 6. Configure database as defined in my-sql.js in config folder
 7. A sql file is available for testing
 
+#### User Login
+1. To Login as a Administrator, use username: eko.andri@icloud.com, password: 111
+2. To Login as a Manager, use username: adi.sopian@gmail.com, password: 111
+3. To Login as a User, use username: eko.andri@gmail.com, password: 111
+4. After creating a new user by registering, notice that you can not use it immediately, a adminstrator account must be use to activate it.
 
 ===============================================================
 
