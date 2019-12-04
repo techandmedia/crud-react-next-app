@@ -2,6 +2,32 @@
 
 Crud application
 
+## Last Update: December 4, 2019 - 16:36
+#### Feature
+1. Basic CRUD - ALL working properly
+2. Update - see the known bugs at the end of this readme
+
+#### What can be better
+1. Design a better and comprehensive system 
+2. Using NestJs / Or at this point, probably GraphQL at the backend
+3. Better component composition and make use of reducer more
+
+#### Feature not available
+1. Exporting to html / excel
+2. No testing
+
+#### How to run the app
+1. Clone this repo
+2. CD into the folder just created, and run yarn
+3. For the development, run yarn dev
+4. For the API Server, CD into api-server folder, and run yarn
+5. Run yarn server
+6. Configure database as defined in my-sql.js in config folder
+7. A sql file is available for testing
+
+
+===============================================================
+
 ## The Structure of The APP
 
 #### Framework
@@ -181,3 +207,7 @@ const subMenu = [
 #### Known Bugs and Fixed
 
 1. To use Ant Design Editable Table, make sure you have unique key in your data. Since I don't have key column, and I can't alias a column table name to "key", MySQL won't let me, instead I alias it with indx. And, you pass it through a rowKey props as indx. Find item.key or record.key and replace it with item.indx or record.indx
+
+#### Known Bugs and Not Fixed
+
+1. Updating task do not update the table immediately, have to refresh or login/logout
