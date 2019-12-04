@@ -3,15 +3,14 @@ import { Row, Col, Button } from "antd";
 import { Table, Modal, FormNewTask } from "components";
 import { UserContext } from "context/Global-Context";
 import usePostData from "api/usePostData";
-import useFetchData from "api/useFetchData";
 import modalReducer from "utils/reducers/modal-reducer";
 import dataReducer from "./reducers";
 
 export default function TaskList() {
   const { user } = useContext(UserContext);
-  const [dataUser, dispatchData] = useReducer(dataReducer, {});
+  const [dataUser, dispatchData] = useReducer(dataReducer, { columns: [] });
   const [results, postData] = usePostData();
-  const [data, refetch] = usePostData(API_FOR_ALL_TASKS, {});
+  const [data, refetch] = usePostData("", "");
   const [modal, dispatchModal] = useReducer(modalReducer, {
     isModalVisible: false
   });

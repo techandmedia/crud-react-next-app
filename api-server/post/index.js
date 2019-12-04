@@ -312,4 +312,32 @@ exports.updateUserGroup = router.post("/api/users/update-group", (req, res) => {
   );
 });
 
+exports.updatetask = router.post("/api/users/delete-task", (req, res) => {
+  console.log(body);
+  const body = req.body;
+  const ID = req.body.indx;
+
+  mySQL.query("DELETE FROM time_table WHERE id_time_table = ?", ID, function(
+    error,
+    results,
+    fields
+  ) {
+    console.log("DELETE TASKS =================", results);
+    if (error) {
+      res.send({
+        code: 400,
+        status: "Failed",
+        message: error
+      });
+    } else {
+      res.send({
+        code: 200,
+        status: "Success",
+        message: "Delete Task Succed",
+        data: results
+      });
+    }
+  });
+});
+
 module.exports = router;

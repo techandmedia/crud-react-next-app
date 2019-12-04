@@ -1,4 +1,16 @@
-import { Table, Input, InputNumber, Popconfirm, Form } from "antd";
+import { useReducer } from "react";
+import {
+  Table,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Form,
+  Menu,
+  Dropdown,
+  Icon,
+  message
+} from "antd";
+import menuReducer from "./reducers";
 
 const EditableContext = React.createContext();
 
@@ -93,20 +105,52 @@ class EditableTable extends React.Component {
               </Popconfirm>
             </span>
           ) : (
-            <a
-              disabled={editingKey !== ""}
-              onClick={() => this.edit(record.indx)}
-            >
-              Edit
-            </a>
+            <React.Fragment>{this.drop(record.indx)}</React.Fragment>
           );
         }
       }
     ];
   }
 
+  onClick = (key, indx) => {
+    console.log("abc1", key, "+ ", indx);
+    if (key === "1") {
+      message.info(`Click on item ${key} ${indx}`);
+      this.edit(indx);
+    }
+    if (key === "2") {
+      console.log("abc1", key, "+ ", indx);
+      message.info(`Click on item ${key} ${indx}`);
+    }
+  };
+
+  menu = indx => (
+    <Menu
+      onClick={e => this.onClick(e.key, indx)}
+      // onClick={key => this.props.dispatchMenu({ key, indx, edit: this.edit })}
+    >
+      <Menu.Item key="1">
+        <a disabled={this.state.editingKey !== ""}>
+          <Icon type="edit" style={{ color: "black" }} />
+        </a>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <a>
+          <Icon type="delete" style={{ color: "black" }} />
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+
+  drop = indx => (
+    <Dropdown overlay={() => this.menu(indx)}>
+      <a className="ant-dropdown-link" href="#">
+        <Icon type="more" />
+      </a>
+    </Dropdown>
+  );
+
   isEditing = record => record.indx === this.state.editingKey;
-  // isEditing = record => record.key === this.state.editingKey;
 
   cancel = () => {
     this.setState({ editingKey: "" });
@@ -148,6 +192,7 @@ class EditableTable extends React.Component {
   }
 
   edit(key) {
+    console.log(key);
     this.setState({ editingKey: key });
   }
 
@@ -216,4 +261,10 @@ class EditableTable extends React.Component {
 
 const EditableFormTable = Form.create()(EditableTable);
 
-export default EditableFormTable;
+export default function CustomTable(props) {
+  const [menu, dispatchMenu] = useReducer(menuReducer, {});
+
+  return (
+    <EditableFormTable {...props} menu={menu} dispatchMenu={dispatchMenu} />
+  );
+}

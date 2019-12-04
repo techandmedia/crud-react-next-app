@@ -7,6 +7,7 @@ export default function dataReducer(state, action) {
     case "init":
       const API_FOR_NEW_TASK = "api/task/new-task";
       const API_FOR_UPDATE_TASK = "api/users/update-task";
+      const API_TO_DELETE_TASK = "api/users/delete-task";
       const API_FOR_ALL_TASKS = "api/users/tasks";
       const profile = user.detail[0];
       const isAdmin = profile.group_name === "admin" ? true : false;
@@ -95,6 +96,7 @@ export default function dataReducer(state, action) {
         API_FOR_ALL_TASKS,
         API_FOR_NEW_TASK,
         API_FOR_UPDATE_TASK,
+        API_TO_DELETE_TASK,
         columns
       };
 
