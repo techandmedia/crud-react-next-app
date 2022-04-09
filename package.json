@@ -12,7 +12,7 @@
     "antd": "^3.25.2",
     "axios": "^0.21.2",
     "babel-plugin-import": "^1.12.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "next": "^9.1.4",
     "null-loader": "^3.0.0",
     "react": "^16.12.0",
